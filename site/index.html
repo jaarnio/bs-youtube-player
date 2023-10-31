@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Live Stream Player</title>
+
+    <!-- Include Video.js library -->
+    <link href="https://vjs.zencdn.net/7.14.3/video-js.css" rel="stylesheet" />
+    <script src="https://vjs.zencdn.net/7.14.3/video.js"></script>
+    <script src="videojs-errors.js"></script>
+    <script src="videojs-youtube.js"></script>
+    <link href="videojs-errors.css" rel="stylesheet" />
+    <script src="app.js"></script>
+    <script src="playlist.js"></script>
+  </head>
+  <body
+    style="
+      background-color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 1920px;
+      height: 1080px;
+      margin: 0;
+    "
+  >
+    <!-- Video.js player -->
+    <video
+      id="my-video"
+      class="video-js vjs-default-skin"
+      preload="auto"
+      height="1080px"
+      width="1920px"
+    >
+      <source src="" type="application/x-mpegURL" />
+      <!-- You can add more source elements for different video formats -->
+    </video>
+  </body>
+</html>
