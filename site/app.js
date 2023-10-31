@@ -15,63 +15,54 @@ document.addEventListener("DOMContentLoaded", function () {
 
   var player = videojs("my-video", options, function onPlayerReady() {
     videojs.log("Video player is ready");
-
-    this.play();
-    this.on("playing", function () {
-      console.log("Video is playing");
-      monitorStream(this);
-    });
-
-    function monitorStream(player) {
-      console.log("Monitoring stream...");
-
-      player.reloadSourceOnError({
-        getSource: function (reload) {
-          console.log("Reloading because of an error");
-          errorCount++;
-          reload({
-            src: playlist[currentVideoIndex],
-            type: "application/x-mpegURL",
-          });
-          if (errorCount > 5) {
-            console.log("Error count exceeded. Skipping to next video...");
-            currentVideoIndex++;
-            errorCount = 0;
-          }
-        },
-        errorInterval: 5,
-      });
-
-      player.on("ratechange", function () {
-        console.log("Rate change");
-      });
-      player.on("waiting", function () {
-        console.log("Video is waiting.");
-      });
-      player.on("stalled", function () {
-        console.log("Video playback stalled.");
-      });
-      player.on("suspend", function () {
-        console.log("Video playback suspended.");
-      });
-      player.on("ended", function () {
-        console.log("Video playback ended, current index: " + currentVideoIndex);
-        currentVideoIndex++;
-        if (currentVideoIndex === playlist.length) {
-          currentVideoIndex = 0;
-        }
-        var nextVideo = playlist[currentVideoIndex];
-        this.src({ src: nextVideo, type: "video/youtube" });
-        this.play();
-      });
-    }
+    playVideo(currentVideoIndex);
   });
 
-  // Function to reload the video stream
-  function reloadVideo(player) {
-    console.log("Reloading video...");
-    player.src(videoSource);
-    player.load();
-    //player.play();
+  function playVideo(index) {
+    console.log("Starting video " + index);
+    player.src({ src: playlist[index], type: "video/youtube" });
+    player.play();
+    monitorStream(player);
+  }
+
+  function monitorStream(player) {
+    console.log("Monitoring stream...");
+
+    player.reloadSourceOnError({
+      getSource: function (reload) {
+        console.log("Reloading because of an error");
+        errorCount++;
+        reload({
+          src: playlist[currentVideoIndex],
+          type: "application/x-mpegURL",
+        });
+        if (errorCount > 5) {
+          console.log("Error count exceeded. Skipping to next video...");
+          currentVideoIndex++;
+          errorCount = 0;
+        }
+      },
+      errorInterval: 5,
+    });
+    player.on("playing", function () {
+      console.log("Video is playing.");
+    });
+    player.on("ratechange", function () {
+      console.log("Rate change");
+    });
+    player.on("waiting", function () {
+      console.log("Video is waiting.");
+    });
+    player.on("stalled", function () {
+      console.log("Video playback stalled.");
+    });
+    player.on("suspend", function () {
+      console.log("Video playback suspended.");
+    });
+    player.on("ended", function () {
+      console.log("Video " + currentVideoIndex + " ended.");
+      currentVideoIndex++;
+      playVideo(currentVideoIndex);
+    });
   }
 });

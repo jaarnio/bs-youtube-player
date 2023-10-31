@@ -497,7 +497,7 @@
         }
       },
       "wssDeviceSpec": {},
-      "lastModifiedTime": "2023-10-31T18:50:09.426Z"
+      "lastModifiedTime": "2023-10-31T19:49:46.509Z"
     },
     "zones": {
       "zonesById": {
@@ -691,7 +691,7 @@
         "queryString": {
           "params": []
         },
-        "indexAssetId": "566de0bc-755b-4000-abec-74a2467de000",
+        "indexAssetId": "53f193a5-825b-4000-a541-e447e8ce2000",
         "enableNode": false
       }
     },
@@ -719,17 +719,17 @@
     "partnerProducts": {},
     "customAutorun": "0",
     "assetMap": {
-      "566de0bc-755b-4000-abec-74a2467de000": {
-        "id": "566de0bc-755b-4000-abec-74a2467de000",
+      "53f193a5-825b-4000-a541-e447e8ce2000": {
+        "id": "53f193a5-825b-4000-a541-e447e8ce2000",
         "name": "index.html",
-        "path": "P:\\BrightSign\\BrightSign Dev\\bs-stream-mp\\site\\",
+        "path": "P:\\BrightSign\\BrightSign Dev\\bs-youtube-player\\site\\",
         "networkId": 0,
         "location": "Local",
         "assetType": "HtmlSite",
         "scope": "9560ed3374e2cc1c",
-        "locator": "file://\\P:\\BrightSign\\BrightSign Dev\\bs-stream-mp\\site\\index.html",
-        "fileSize": 1869,
-        "lastModifiedDate": "2023-10-30T14:34:18.174Z",
+        "locator": "file://\\P:\\BrightSign\\BrightSign Dev\\bs-youtube-player\\site\\index.html",
+        "fileSize": 1097,
+        "lastModifiedDate": "2023-10-31T17:30:06.993Z",
         "refCount": 1
       }
     },
