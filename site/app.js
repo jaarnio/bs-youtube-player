@@ -15,12 +15,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
   var player = videojs("my-video", options, function onPlayerReady() {
     videojs.log("Video player is ready");
-    playVideo(currentVideoIndex);
+    playVideo();
   });
 
-  function playVideo(index) {
-    console.log("Starting video " + index);
-    player.src({ src: playlist[index], type: "video/youtube" });
+  function playVideo() {
+    if (currentVideoIndex === playlist.length) {
+      console.log("Playlist restarting");
+      currentVideoIndex = 0;
+    }
+    console.log("Starting video " + currentVideoIndex);
+    player.src({ src: playlist[currentVideoIndex], type: "video/youtube" });
     player.play();
     monitorStream(player);
   }
@@ -62,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
     player.on("ended", function () {
       console.log("Video " + currentVideoIndex + " ended.");
       currentVideoIndex++;
-      playVideo(currentVideoIndex);
+      playVideo();
     });
   }
 });
