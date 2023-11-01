@@ -8,8 +8,8 @@ Publish.
 
 ## Known Issues
 
-Needs better error handling to catch videos that are not allowed to be embedded. It should skip over them after 5 retries, but might also freeze the video.
-Need to implement a poster in Video.js to alleviate the image flash between videos.
+Needs better error handling to catch videos that are not allowed to be embedded.
+It should skip over them after 5 retries, but might also freeze the video.
 
 ## Future
 
