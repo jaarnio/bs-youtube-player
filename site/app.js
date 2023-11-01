@@ -10,14 +10,16 @@ document.addEventListener("DOMContentLoaded", function () {
     liveUI: true,
     techOrder: ["youtube"],
     sources: [{ src: playlist[currentVideoIndex], type: "video/youtube" }],
+    poster: "./poster.png",
   };
 
   var player = videojs("my-video", options, function onPlayerReady() {
     videojs.log("Video player is ready");
-    playVideo();
-    monitorStream(player);
+    playVideo(); // Start playing the first video
+    monitorStream(player); // Monitor the player for errors and other events
   });
 
+  // Play the video at the current index in the playlist
   function playVideo() {
     if (currentVideoIndex === playlist.length) {
       console.log("Playlist restarting");
@@ -28,14 +30,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     player.ready(function () {
       player.src({ src: playlist[currentVideoIndex], type: "video/youtube" });
+      player.poster("./poster.png");
       player.load();
       player.play();
     });
   }
 
+  // Set up various event listeners for the player
+  // Ended event listener is required to advance the playlist
   function monitorStream(player) {
     console.log("Monitoring stream...");
-
+    // Plugin to auto-reload on error.  Needs testing / better handling
     player.reloadSourceOnError({
       getSource: function (reload) {
         console.log("Reloading because of an error");
@@ -52,12 +57,6 @@ document.addEventListener("DOMContentLoaded", function () {
       },
       errorInterval: 5,
     });
-    /*     player.on("timeupdate", function () {
-      if (player.readyState() === 4) {
-        console.log("Player state is HAVE_ENOUGH_DATA");
-        // Perform your action here
-      }
-    }); */
     player.on("playing", function () {
       console.log("Video is playing.");
     });
