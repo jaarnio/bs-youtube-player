@@ -5,8 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const options = {
     controls: false,
-    autoplay: true,
-    preload: "auto",
+    preload: "none",
     fluid: true,
     liveUI: true,
     techOrder: ["youtube"],
@@ -16,6 +15,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var player = videojs("my-video", options, function onPlayerReady() {
     videojs.log("Video player is ready");
     playVideo();
+    monitorStream(player);
   });
 
   function playVideo() {
@@ -24,9 +24,13 @@ document.addEventListener("DOMContentLoaded", function () {
       currentVideoIndex = 0;
     }
     console.log("Starting video " + currentVideoIndex);
-    player.src({ src: playlist[currentVideoIndex], type: "video/youtube" });
-    player.play();
-    monitorStream(player);
+    console.log("Player State: " + player.readyState());
+
+    player.ready(function () {
+      player.src({ src: playlist[currentVideoIndex], type: "video/youtube" });
+      player.load();
+      player.play();
+    });
   }
 
   function monitorStream(player) {
@@ -48,14 +52,20 @@ document.addEventListener("DOMContentLoaded", function () {
       },
       errorInterval: 5,
     });
+    /*     player.on("timeupdate", function () {
+      if (player.readyState() === 4) {
+        console.log("Player state is HAVE_ENOUGH_DATA");
+        // Perform your action here
+      }
+    }); */
     player.on("playing", function () {
       console.log("Video is playing.");
     });
     player.on("ratechange", function () {
-      console.log("Rate change");
+      //console.log("Rate change");
     });
     player.on("waiting", function () {
-      console.log("Video is waiting.");
+      //console.log("Video is waiting.");
     });
     player.on("stalled", function () {
       console.log("Video playback stalled.");
